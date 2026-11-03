@@ -805,6 +805,230 @@ tbody tr:hover {
     }
 }
 
+.login-card {
+    justify-items: stretch;
+}
+
+.login-card .login-logo {
+    justify-self: center;
+}
+
+.annual-panel {
+    margin-bottom: 28px;
+    scroll-margin-top: 20px;
+}
+
+.year-picker {
+    display: grid;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.year-picker select,
+.transaction-form select,
+.transaction-row select {
+    min-height: 42px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    background: #fff;
+    font: inherit;
+}
+
+.spreadsheet-table {
+    min-width: 760px;
+}
+
+.spreadsheet-table th,
+.spreadsheet-table td {
+    border: 1px solid rgba(40, 73, 55, 0.18);
+}
+
+.spreadsheet-table th {
+    background: #e8f1eb;
+    color: #355641;
+}
+
+.spreadsheet-table tbody tr:nth-child(even) {
+    background: rgba(232, 241, 235, 0.52);
+}
+
+.annual-calendar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.calendar-month {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #fff;
+}
+
+.calendar-month h4 {
+    padding: 12px;
+    color: #284f37;
+    background: #e8f1eb;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 1px;
+    background: rgba(40, 73, 55, 0.14);
+}
+
+.calendar-weekday {
+    padding: 7px 2px;
+    color: #5b6d5f;
+    background: #f0f4ee;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.calendar-cell {
+    display: grid;
+    align-content: start;
+    gap: 3px;
+    min-height: 100px;
+    padding: 5px;
+    overflow-wrap: anywhere;
+    background: #fff;
+    color: #596c5c;
+    font-size: 0.58rem;
+}
+
+.calendar-cell strong {
+    color: #254a34;
+    font-size: 0.75rem;
+}
+
+.calendar-cell.has-activity {
+    background: #f3f8f2;
+}
+
+.calendar-empty {
+    min-height: 0;
+}
+
+.transaction-form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+    gap: 12px;
+    padding: 16px;
+    margin: 18px 0 24px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #f7f9f5;
+}
+
+.transaction-form h4,
+.transaction-list-wrap h4 {
+    grid-column: 1 / -1;
+    color: #284f37;
+}
+
+.transaction-form > button {
+    min-height: 44px;
+}
+
+.transaction-list-wrap {
+    margin-bottom: 22px;
+}
+
+.transaction-list-wrap > h4 {
+    margin-bottom: 10px;
+}
+
+.transaction-row {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(115px, 1fr)) auto;
+    align-items: end;
+    gap: 10px;
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+}
+
+.transaction-row .field {
+    min-width: 0;
+}
+
+.transaction-row .field input,
+.transaction-row .field select {
+    min-width: 0;
+    width: 100%;
+}
+
+.customer-card {
+    padding: 10px 0 18px;
+    border-top: 1px solid var(--border);
+}
+
+.customer-map {
+    display: block;
+    width: 100%;
+    height: 240px;
+    margin-top: 12px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #eef4ed;
+}
+
+.map-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #2f8059;
+    font-weight: 700;
+}
+
+.editor-panel .field > label,
+.editor-panel > .form-grid > .field > label {
+    display: block;
+    margin: 12px 0 7px;
+}
+
+@media (max-width: 980px) {
+    .transaction-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .annual-calendar {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 680px) {
+    .transaction-form,
+    .transaction-row {
+        grid-template-columns: 1fr;
+    }
+
+    .year-picker {
+        width: 100%;
+    }
+
+    .calendar-cell {
+        min-height: 82px;
+        padding: 3px;
+        font-size: 0.52rem;
+    }
+}
+
+@media (max-height: 700px) {
+    .login-screen {
+        align-items: start;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
 :root {
     --bg: #f3f5ef;
     --bg-soft: #e8eee7;
