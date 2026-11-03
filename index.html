@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chommell Farm Dashboard</title>
+    <meta name="description"
+        content="Dashboard pemasukan dan pengeluaran ikan hias dengan analitik bulanan dan pengiriman WhatsApp." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <section class="login-screen" id="loginScreen">
+        <form class="login-card" id="loginForm">
+            <img class="login-logo" src="Logo Chommell Farm_ Alam, Ikan, Keindahan.png" alt="Logo Chommell Farm" />
+            <p class="eyebrow">Chommell Farm</p>
+            <h1>Selamat datang</h1>
+            <p class="login-description">Masuk untuk membuka dashboard operasional farm.</p>
+            <label class="login-field">Nama user
+                <input id="loginUsername" name="username" autocomplete="username" required />
+            </label>
+            <label class="login-field">Password
+                <input id="loginPassword" name="password" type="password" autocomplete="current-password" required />
+            </label>
+            <p class="login-error" id="loginError" role="alert"></p>
+            <button class="primary-btn" type="submit">Masuk ke dashboard</button>
+        </form>
+    </section>
+
+    <div class="page-shell" id="dashboardApp" hidden>
+        <header class="topbar">
+            <div class="brand-wrap">
+                <img class="brand-logo" src="Logo Chommell Farm_ Alam, Ikan, Keindahan.png" alt="Logo Chommell Farm" />
+                <div class="brand-copy">
+                    <p class="eyebrow">Chommell farm kendaldoyong</p>
+                    <h1>Dashboard stok & keuangan</h1>
+                </div>
+            </div>
+
+            <div class="topbar-actions">
+                <button class="ghost-btn action-btn" id="queueNumberBtn" type="button">Nomor antrean</button>
+                <button class="ghost-btn action-btn" id="annualRecapBtn" type="button">Rekap tahunan</button>
+                <button class="ghost-btn action-btn" id="resetDataBtn" type="button">
+                    Reset data
+                </button>
+                <button class="primary-btn action-btn" id="sendWhatsAppBtn" type="button">
+                    Kirim ringkasan
+                </button>
+                <button class="ghost-btn action-btn" id="logoutBtn" type="button">Keluar</button>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <section class="hero-panel glass-panel">
+                <div class="hero-copy">
+                    <p class="eyebrow">Data operasional farm </p>
+                    <h2>Informasi operasional yang jelas dan mudah dipahami</h2>
+                    <p>
+                        Pantau arus kas, stok ikan, dan jumlah penjualan dalam satu dashboard.
+                    </p>
+                    <div class="hero-badges">
+                        <span>Guppy</span>
+                        <span>Molly</span>
+                        <span>Cupang</span>
+                        <span>Cawang white</span>
+                        <span>Cawang black</span>
+                    </div>
+                </div>
+
+                <div class="hero-figure">
+                    <div class="fish-glow"></div>
+                    <img src="Logo Chommell Farm_ Alam, Ikan, Keindahan.png" alt="Logo Chommell Farm" />
+                </div>
+            </section>
+
+            <section class="panel glass-panel queue-panel" id="queueTicket" hidden aria-live="polite">
+                <p class="eyebrow">Nomor antrean</p>
+                <h3 id="queueNumberDisplay"></h3>
+                <p id="queueDateDisplay"></p>
+            </section>
+
+            <section class="stats-grid">
+                <article class="stat-card glass-panel income-card">
+                    <div class="stat-head">
+                        <span class="label">Pemasukan</span>
+                        <span class="dot positive"></span>
+                    </div>
+                    <h3 id="incomeTotal">Rp 0</h3>
+                    <small>Jumlah masuk bulan ini</small>
+                </article>
+
+                <article class="stat-card glass-panel expense-card">
+                    <div class="stat-head">
+                        <span class="label">Pengeluaran</span>
+                        <span class="dot negative"></span>
+                    </div>
+                    <h3 id="expenseTotal">Rp 0</h3>
+                    <small>Biaya operasional</small>
+                </article>
+
+                <article class="stat-card glass-panel net-card">
+                    <div class="stat-head">
+                        <span class="label">Keuntungan</span>
+                        <span class="dot neutral"></span>
+                    </div>
+                    <h3 id="netTotal">Rp 0</h3>
+                    <small>Saldo bersih</small>
+                </article>
+
+                <article class="stat-card glass-panel stock-card">
+                    <div class="stat-head">
+                        <span class="label">Stok Aktif</span>
+                        <span class="dot accent"></span>
+                    </div>
+                    <h3 id="stockTotal">0</h3>
+                    <small>Total ekor siap jual</small>
+                </article>
+            </section>
+
+            <section class="content-grid">
+                <div class="panel glass-panel analytics-panel">
+                    <div class="panel-header">
+                        <div>
+                            <p class="eyebrow">Analitik Bulanan</p>
+                            <h3>Data keuangan tahun berjalan</h3>
+                        </div>
+                        <button class="mini-btn action-btn" id="downloadSummaryBtn" type="button">
+                            Export Excel
+                        </button>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bulan</th>
+                                    <th>Pemasukan</th>
+                                    <th>Pengeluaran</th>
+                                    <th>Keuntungan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="analyticsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <aside class="panel glass-panel editor-panel">
+                    <div class="panel-header compact">
+                        <div>
+                            <p class="eyebrow">Edit Data</p>
+                            <h3>Edit data harian dan stok</h3>
+                        </div>
+                    </div>
+
+                    <div class="editor-tab-group">
+                        <button class="editor-tab active" data-editor="daily" type="button">Harian</button>
+                        <button class="editor-tab" data-editor="guppy" type="button">Guppy</button>
+                        <button class="editor-tab" data-editor="molly" type="button">Molly</button>
+                        <button class="editor-tab" data-editor="cupang" type="button">Cupang</button>
+                        <button class="editor-tab" data-editor="blackCawang" type="button">Cawang Black</button>
+                        <button class="editor-tab" data-editor="cawangWhite" type="button">Cawang White</button>
+                    </div>
+
+                    <div class="form-grid" id="editorForm"></div>
+
+                    <div class="editor-actions">
+                        <button class="secondary-btn action-btn" id="saveDataBtn" type="button">
+                            Simpan data
+                        </button>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="panel glass-panel annual-panel" id="annualPanel" hidden>
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">Rekap tahunan</p>
+                        <h3>Ringkasan dari tahun ke tahun</h3>
+                    </div>
+                    <label class="year-picker">Pilih tahun
+                        <select id="annualYearSelect"></select>
+                    </label>
+                </div>
+                <div class="table-wrap">
+                    <table class="spreadsheet-table annual-summary-table">
+                        <thead>
+                            <tr>
+                                <th>Tahun</th>
+                                <th>Pemasukan</th>
+                                <th>Pengeluaran</th>
+                                <th>Keuntungan</th>
+                                <th>Ikan terjual</th>
+                            </tr>
+                        </thead>
+                        <tbody id="annualComparisonBody"></tbody>
+                    </table>
+                </div>
+                <div class="annual-calendar" id="annualCalendar"></div>
+            </section>
+
+            <section class="panel glass-panel daily-panel">
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">Rekap Harian</p>
+                        <h3>Keuangan dan ikan terjual per tanggal</h3>
+                    </div>
+                </div>
+
+                <p class="ledger-note">Rekap diperbarui otomatis dari pemasukan, pengeluaran, dan jumlah ikan terjual yang disimpan pada data harian.</p>
+
+                <form class="transaction-form" id="transactionForm">
+                    <h4>Tambah transaksi penjualan / biaya</h4>
+                    <label class="field">Tanggal
+                        <input id="transactionDate" name="date" type="date" required />
+                    </label>
+                    <label class="field">Jenis ikan
+                        <select id="transactionFish" name="fish" required>
+                            <option value="guppy">Guppy</option>
+                            <option value="molly">Molly</option>
+                            <option value="cupang">Cupang</option>
+                            <option value="cawangBlack">Cawang Black</option>
+                            <option value="cawangWhite">Cawang White</option>
+                        </select>
+                    </label>
+                    <label class="field">Jumlah terjual (ekor)
+                        <input id="transactionSold" name="sold" type="number" min="0" step="1" value="0" required />
+                    </label>
+                    <label class="field">Harga perekor (Rp)
+                        <input id="transactionUnitPrice" name="unitPrice" type="number" min="0" step="1" value="0" required />
+                    </label>
+                    <label class="field">Pendapatan (Rp)
+                        <input id="transactionIncome" name="income" type="number" min="0" step="1" value="0" required />
+                    </label>
+                    <label class="field">Pengeluaran transaksi (Rp)
+                        <input id="transactionExpense" name="expense" type="number" min="0" step="1" value="0" required />
+                    </label>
+                    <button class="secondary-btn" type="submit">Tambah transaksi</button>
+                </form>
+
+                <div class="transaction-list-wrap">
+                    <h4>Daftar transaksi (dapat diedit)</h4>
+                    <div id="transactionList"></div>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="spreadsheet-table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Pemasukan</th>
+                                <th>Pengeluaran</th>
+                                <th>Keuntungan</th>
+                                <th>Ikan terjual</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dailyLedgerBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="panel glass-panel customers-panel">
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">Pelanggan</p>
+                        <h3>Nama toko dan alamat</h3>
+                    </div>
+                    <button class="mini-btn" id="toggleCustomerDirectory" type="button">Daftar alamat toko</button>
+                </div>
+                <div id="customerDirectoryContent" hidden>
+                    <form class="customer-form" id="customerForm">
+                        <label class="field">Nama toko
+                            <input id="customerName" name="name" maxlength="100" required placeholder="Contoh: Toko Ikan Sejahtera" />
+                        </label>
+                        <label class="field">Alamat toko
+                            <input id="customerAddress" name="address" maxlength="240" required placeholder="Alamat pelanggan" />
+                        </label>
+                        <button class="secondary-btn" type="submit">Tambah pelanggan</button>
+                    </form>
+                    <div class="customer-list" id="customerList"></div>
+                </div>
+            </section>
+
+            <section class="species-section">
+                <div class="species-header">
+                    <div>
+                        <p class="eyebrow">Komoditas</p>
+                        <h3>Jenis ikan hias</h3>
+                    </div>
+                </div>
+
+                <div class="species-grid">
+                    <article class="fish-card glass-panel">
+                        <img src="gambar/guppy.jpg" alt="Guppy" />
+                        <div class="fish-info">
+                            <div class="fish-title-row">
+                                <h4>Guppy</h4>
+                                <span class="pill positive">Rp 0</span>
+                            </div>
+                            <ul>
+                                <li>Stok: <strong id="guppyStock">0</strong></li>
+                                <li>Harga / 100 ekor: <strong id="guppyPriceHundred">Rp 0</strong></li>
+                                <li>Harga / ekor: <strong id="guppyPriceEach">Rp 0</strong></li>
+                                <li>Pemasukan: <strong id="guppyIncome">Rp 0</strong></li>
+                                <li>Pengeluaran: <strong id="guppyExpense">Rp 0</strong></li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="fish-card glass-panel">
+                        <img src="gambar/calico-balloon-molly-fish-round-tail-black-eyes.jpg" alt="Molly" />
+                        <div class="fish-info">
+                            <div class="fish-title-row">
+                                <h4>Molly</h4>
+                                <span class="pill neutral">Rp 0</span>
+                            </div>
+                            <ul>
+                                <li>Stok: <strong id="mollyStock">0</strong></li>
+                                <li>Harga / 100 ekor: <strong id="mollyPriceHundred">Rp 0</strong></li>
+                                <li>Harga / ekor: <strong id="mollyPriceEach">Rp 0</strong></li>
+                                <li>Pemasukan: <strong id="mollyIncome">Rp 0</strong></li>
+                                <li>Pengeluaran: <strong id="mollyExpense">Rp 0</strong></li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="fish-card glass-panel">
+                        <img src="gambar/cupang.jpg" alt="Cupang" />
+                        <div class="fish-info">
+                            <div class="fish-title-row">
+                                <h4>Cupang</h4>
+                                <span class="pill accent">Rp 0</span>
+                            </div>
+                            <ul>
+                                <li>Stok: <strong id="cupangStock">0</strong></li>
+                                <li>Harga / 100 ekor: <strong id="cupangPriceHundred">Rp 0</strong></li>
+                                <li>Harga / ekor: <strong id="cupangPriceEach">Rp 0</strong></li>
+                                <li>Pemasukan: <strong id="cupangIncome">Rp 0</strong></li>
+                                <li>Pengeluaran: <strong id="cupangExpense">Rp 0</strong></li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="fish-card glass-panel">
+                        <img src="gambar/cawang poteh.jpg" alt="Cawang poteh" />
+                        <div class="fish-info">
+                            <div class="fish-title-row">
+                                <h4>Cawang White</h4>
+                                <span class="pill positive">Rp 0</span>
+                            </div>
+                            <ul>
+                                <li>Stok: <strong id="channaStock">0</strong></li>
+                                <li>Harga / 100 ekor: <strong id="cawangWhitePriceHundred">Rp 0</strong></li>
+                                <li>Harga / ekor: <strong id="cawangWhitePriceEach">Rp 0</strong></li>
+                                <li>Pemasukan: <strong id="channaIncome">Rp 0</strong></li>
+                                <li>Pengeluaran: <strong id="channaExpense">Rp 0</strong></li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article class="fish-card glass-panel">
+                        <img src="gambar/black cawang.jpg" alt="Cawang Black" />
+                        <div class="fish-info">
+                            <div class="fish-title-row">
+                                <h4>Cawang Black</h4>
+                                <span class="pill accent">Rp 0</span>
+                            </div>
+                            <ul>
+                                <li>Stok: <strong id="blackCawangStock">0</strong></li>
+                                <li>Harga / 100 ekor: <strong id="cawangBlackPriceHundred">Rp 0</strong></li>
+                                <li>Harga / ekor: <strong id="cawangBlackPriceEach">Rp 0</strong></li>
+                                <li>Pemasukan: <strong id="blackCawangIncome">Rp 0</strong></li>
+                                <li>Pengeluaran: <strong id="blackCawangExpense">Rp 0</strong></li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite">Data tersimpan</div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
